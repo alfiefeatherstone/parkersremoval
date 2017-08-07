@@ -6,7 +6,6 @@ export default [
     path: '/',
     exact: true,
     component: HomePage,
-    data: '../data/home',
   },
   {
     path: '/about',

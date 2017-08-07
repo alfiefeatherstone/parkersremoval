@@ -1,3 +1,9 @@
+import Page from './lib/Page'
+
 export default () => (
-  <div>WTF Home Page</div>
+  <Page
+    title="Home Removal - Parkers Removal Services - London, UK"
+  >
+    <div>WTF Home Page</div>
+  </Page>
 )

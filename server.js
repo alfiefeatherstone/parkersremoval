@@ -6,6 +6,7 @@ const {
 } = process.env
 
 const app = express()
+
 app.get('/healthcheck', (req, res) => {
   res.json({ up: true })
 })
