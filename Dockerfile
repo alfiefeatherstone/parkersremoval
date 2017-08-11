@@ -6,7 +6,7 @@ WORKDIR /app
 ADD package.json .
 RUN npm i
 
-ADD build/src server
+ADD build/src src
 ADD build/server.js  index.js
 
 CMD node index.js

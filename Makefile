@@ -14,6 +14,8 @@ build-image:
 		-t $(IMAGE):$(VERSION) \
 		.
 
+push: push-image
+	
 push-image:
 	docker push $(IMAGE):$(VERSION)
 	docker push $(IMAGE):latest
