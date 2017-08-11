@@ -26,3 +26,9 @@ class Page extends Component {
 
 
 export default withDocumentContext(Page)
+
+export const funcA = () => 123
+export const funcB = () => {
+  const action = funcA
+  return action()
+}
