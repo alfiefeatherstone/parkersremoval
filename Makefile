@@ -15,7 +15,7 @@ build-image:
 		.
 
 push: push-image
-	
+
 push-image:
 	docker push $(IMAGE):$(VERSION)
 	docker push $(IMAGE):latest
@@ -25,4 +25,5 @@ create-service:
 		--name $(SERVICE_NAME) \
  		--limit-memory 128000000 \
 		--reserve-memory 128000000 \
+		-p 3123:3000 \
 		$(IMAGE):latest
