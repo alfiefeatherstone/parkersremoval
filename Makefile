@@ -1,6 +1,6 @@
-SERVICE_NAME=parkersremovals
+SERVICE=parkersremovals
 IMAGE=renegare/$(SERVICE_NAME)
-VERSION=$(shell git rev-parse --verify --short=10 HEAD)
+VERSION ?=$(shell git rev-parse --verify --short=10 HEAD)
 
 build: build-assets build-image
 
@@ -22,8 +22,11 @@ push-image:
 
 create-service:
 	docker service create \
-		--name $(SERVICE_NAME) \
+		--name $(SERVICE) \
  		--limit-memory 128000000 \
 		--reserve-memory 128000000 \
 		-p 3123:3000 \
 		$(IMAGE):latest
+
+version:
+	echo $(VERSION)

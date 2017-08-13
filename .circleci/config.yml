@@ -46,10 +46,13 @@ jobs:
               $DOCKER_SWARM | grep -P 'tcp://[\d+:\.]+' -o
             export DOCKER_CLOUD_HOST=`docker inspect $(echo $DOCKER_SWARM | sed -E 's/^([a-z]+)\/([a-z]+)/client_proxy_\1_\2/g') -f {{.NetworkSettings.IPAddress}}`
             echo "Setting up docker cloud ctrl container with DOCKER_CLOUD_HOST @ $DOCKER_CLOUD_HOST"
+            docker create -v /cfg --name configs alpine:3.4 /bin/true
+            docker cp Makefile configs:/cfg
             docker run -e DOCKER_HOST=$DOCKER_CLOUD_HOST --rm \
+              --volumes-from configs \
               -v /var/run/docker.sock:/var/run/docker.sock -d -t --entrypoint /bin/sh \
               --name docker_proxy docker:17.06.0-ce
             echo 'logging into docker ...'
             docker exec docker_proxy docker login -u $DOCKER_USER -p $DOCKER_PASS
             echo 'check for existing service ...'
-            docker exec docker_proxy docker service list --filter name=$SERVICE
+            docker exec docker_proxy VERSION=mudi_was_here make -C /cfg/Makefile version
