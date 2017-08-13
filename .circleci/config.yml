@@ -39,7 +39,8 @@ jobs:
       - run: yarn test
       - run:
           command: |
-            export DOCKER_CLOUD_HOST=`docker run --rm -ti -v /var/run/docker.sock:/var/run/docker.sock -e DOCKER_HOST dockercloud/client \
+            export DOCKER_CLOUD_HOST=`docker run --rm -ti -v /var/run/docker.sock:/var/run/docker.sock -e DOCKER_HOST \
+            --name dockercloud_client dockercloud/client \
               -u $DOCKER_USER \
               -p $DOCKER_PASS \
               $DOCKER_SWARM | grep -P 'tcp://[\d+:\.]+' -o`
