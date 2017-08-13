@@ -39,12 +39,13 @@ jobs:
       - run: yarn test
       - run:
           command: |
-            export DOCKER_CLOUD_HOST=`docker run --rm -ti -v /var/run/docker.sock:/var/run/docker.sock -e DOCKER_HOST \
+            docker run --rm -ti -v /var/run/docker.sock:/var/run/docker.sock -e DOCKER_HOST \
             --name dockercloud_client dockercloud/client \
               -u $DOCKER_USER \
               -p $DOCKER_PASS \
-              $DOCKER_SWARM | grep -P 'tcp://[\d+:\.]+' -o`
+              $DOCKER_SWARM | grep -P 'tcp://[\d+:\.]+' -o
             docker ps
+            export DOCKER_CLOUD_HOST=`docker inspect client_proxy_lemonskip_renegare -f {{.NetworkSettings.IPAddress}}`
             echo "Setting up docker cloud ctrl container with DOCKER_CLOUD_HOST=$DOCKER_CLOUD_HOST"
             docker run -e DOCKER_HOST=$DOCKER_CLOUD_HOST \
               -v /var/run/docker.sock:/var/run/docker.sock -d -t --entrypoint /bin/sh \
