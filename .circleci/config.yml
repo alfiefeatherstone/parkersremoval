@@ -37,3 +37,12 @@ jobs:
 
       # run tests!
       - run: yarn test
+      - run: |
+        export DOCKER_CLOUD_HOST=`docker run --rm -ti -v /var/run/docker.sock:/var/run/docker.sock -e DOCKER_HOST dockercloud/client \
+          -u $DOCKER_USER \
+          -p $DOCKER_PASS \
+          $DOCKER_SWARM | grep -P 'tcp://[\d+:\.]+' -o`
+        echo "Setting up docker cloud ctrl container with DOCKER_CLOUD_HOST=$DOCKER_CLOUD_HOST"
+        docker run -e DOCKER_HOST=$DOCKER_CLOUD_HOST -v /var/run/docker.sock:/var/run/docker.sock -d -t --entrypoint /bin/sh --name docker_proxy docker:17.03.1-ce
+        docker exec docker_proxy docker login -u $DOCKER_USER -p $DOCKER_PASS
+        docker exec docker_proxy docker service list --filter name=$SERVICE
