@@ -53,4 +53,4 @@ jobs:
             echo 'logging into docker ...'
             docker exec docker_proxy docker login -u $DOCKER_USER -p $DOCKER_PASS
             echo 'check for existing service ...'
-            docker exec docker_proxy docker service list --filter name=$SERVICE
+            docker exec docker_proxy docker service list
