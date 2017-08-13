@@ -45,7 +45,7 @@ jobs:
               -p $DOCKER_PASS \
               $DOCKER_SWARM | grep -P 'tcp://[\d+:\.]+' -o
             docker ps
-            export DOCKER_CLOUD_HOST=`docker inspect client_proxy_lemonskip_renegare -f {{.NetworkSettings.IPAddress}}`
+            export DOCKER_CLOUD_HOST=`docker inspect client_proxy_lemonskip_proxy -f {{.NetworkSettings.IPAddress}}`
             echo "Setting up docker cloud ctrl container with DOCKER_CLOUD_HOST=$DOCKER_CLOUD_HOST"
             docker run -e DOCKER_HOST=$DOCKER_CLOUD_HOST \
               -v /var/run/docker.sock:/var/run/docker.sock -d -t --entrypoint /bin/sh \
