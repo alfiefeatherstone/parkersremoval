@@ -30,6 +30,8 @@ create-service:
 
 update:
 	docker service update \
-		--image $(IMAGE):$(VERSION)
+		--image $(IMAGE):$(VERSION) \
+		$(SERVICE)
+
 version:
 	echo $(VERSION)
