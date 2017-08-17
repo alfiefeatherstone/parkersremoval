@@ -57,4 +57,4 @@ jobs:
             echo 'logging into docker ...'
             docker exec docker_proxy docker login -u $DOCKER_USER -p $DOCKER_PASS
             echo 'check for existing service ...'
-            docker exec docker_proxy make -C /cfg update
+            docker exec docker_proxy "VERSION=$(git rev-parse --verify --short=10 HEAD) make -C /cfg update"
