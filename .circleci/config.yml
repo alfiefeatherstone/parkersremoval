@@ -37,6 +37,8 @@ jobs:
 
       # run tests!
       - run: yarn test
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run: make build push
       - run:
           command: |
             docker run --rm -ti -v /var/run/docker.sock:/var/run/docker.sock -e DOCKER_HOST \
@@ -55,4 +57,4 @@ jobs:
             echo 'logging into docker ...'
             docker exec docker_proxy docker login -u $DOCKER_USER -p $DOCKER_PASS
             echo 'check for existing service ...'
-            docker exec docker_proxy make -C /cfg version VERSION=mudi_was_here
+            docker exec docker_proxy make -C /cfg update

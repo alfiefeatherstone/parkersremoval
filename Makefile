@@ -28,5 +28,8 @@ create-service:
 		-p 3123:3000 \
 		$(IMAGE):latest
 
+update:
+	docker service update \
+		--image $(IMAGE):$(VERSION)
 version:
 	echo $(VERSION)
