@@ -6,7 +6,7 @@ export default () => (
   >
     <head>
       <div className="logo">
-        <h1>Parkers Removal Services</h1>
+        <h1>Daniel was here</h1>
         <p>Your property in safe hands</p>
       </div>
 
