@@ -1,5 +1,5 @@
-SERVICE=parkersremovals
-IMAGE=renegare/$(SERVICE_NAME)
+SERVICE ?=parkersremovals
+IMAGE ?=renegare/$(SERVICE)
 VERSION ?=$(shell git rev-parse --verify --short=10 HEAD)
 
 build: build-assets build-image
