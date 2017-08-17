@@ -51,8 +51,8 @@ jobs:
             docker run -e DOCKER_HOST=$DOCKER_CLOUD_HOST --rm \
               --volumes-from configs \
               -v /var/run/docker.sock:/var/run/docker.sock -d -t --entrypoint /bin/sh \
-              --name docker_proxy docker:17.06.0-ce
+              --name docker_proxy renegare/ccc:latest
             echo 'logging into docker ...'
             docker exec docker_proxy docker login -u $DOCKER_USER -p $DOCKER_PASS
             echo 'check for existing service ...'
-            docker exec docker_proxy ls -al /cfg 
+            docker exec docker_proxy make -C /cfg/Makefile version VERSION=mudi_was_here
